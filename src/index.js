@@ -8,23 +8,29 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import "semantic-ui-css/semantic.min.css";
 import firebase from './server/firebase'
-import {Provider} from 'react-redux';
+import {Provider, connect} from 'react-redux';
 import {createStore} from 'redux';
+import {combinedReducers} from './store/reducer';
+import {setUser} from './store/actionCreator';
 
-const store=createStore(()=>{})
+const store=createStore((combinedReducers));
 const Index=(props)=>{
   useEffect(()=>{
     firebase.auth().onAuthStateChanged((user)=>{
       if(user)
       {
-        props.history.push('/')
+        props.setUser(user);
+        props.history.push('/');
       }
       else
       {
+        props.setUser(null);
         props.history.push('/login');
       }
     })
   },[]);
+
+  console.log("Debug", props.currentUser);
   return(
     <Switch>
         <Route path="/register" component={Register}/>
@@ -34,11 +40,23 @@ const Index=(props)=>{
   )
 }
 
-const IndexWithRouter=withRouter(Index);
+const mapStateToProps=(state)=>{
+  return{
+    currentUser:state.user.currentUser
+  }
+}
+
+const mapDispatchToProps=(dispatch)=>{
+  return{
+    setUser:(user)=>{ dispatch(setUser(user)) }
+  }
+}
+
+const IndexWithRouter=withRouter(connect(mapStateToProps,mapDispatchToProps)(Index));
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store>
+    <Provider store={store}>
       <Router>
         <IndexWithRouter/>
       </Router>
