@@ -52,13 +52,19 @@ const Channels =(props)=>{
         if(channelState.length>0)
         {
             return channelState.map((channel)=>{
-                return <Menu.Item
+                
+                return(
+                    <Menu.Item
                     key={channel.id}
                     name={channel.name}
                     onClick={()=> props.selectChannel(channel)}
                     active={channel.id==props.channel.id}
                     >
-                </Menu.Item>
+                    <span>
+                    <Icon name="hashtag"/>
+                    </span>
+                    {channel.name}
+                </Menu.Item>)
             })
         }
     }

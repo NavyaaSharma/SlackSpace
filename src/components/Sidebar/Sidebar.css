@@ -1,5 +1,21 @@
 .side_bar{
     background-color: rgb(62,16,64) !important;
-    font-size: 1.2rem !important;
+    font-size: 1.3rem !important;
     overflow-y: scroll;
+}
+
+.ui.icon.menu .item {
+    line-height: 40px;
+    /* padding-right: 300px !important; */
+    
+}
+
+.ui.vertical.menu .item::before {
+    height: 0px !important;
+}
+
+.ui.labeled.icon.menu .item > .icon:not(.dropdown) {
+    float: left !important;
+    margin-right: 12px !important;
+    
 }

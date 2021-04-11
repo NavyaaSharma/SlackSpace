@@ -6,7 +6,7 @@ import Channels from "./Channels/Channels";
 import "./Sidebar.css";
 
 export const Sidebar = () => {
-    return (<Menu vertical fixed="left" borderless size="large" className="side_bar">
+    return (<Menu vertical fixed="left" borderless size="large" className="side_bar" icon='labeled' vertical inverted>
         <UserInfo />
         <Channels />
     </Menu>
